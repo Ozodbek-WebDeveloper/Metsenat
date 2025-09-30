@@ -1,19 +1,32 @@
 <template>
-  <div elevated class="bg-white text-dark flex items-center q-px-md">
-    <!-- Chap tomonda Logo va nom -->
-    <div class="row items-center">
-      <q-img
-          src="/logo.png"
-          alt="Logo"
-          style="width: 40px; height: 40px"
-          class="q-mr-sm"
-      />
-      <div class="text-h6 text-bold">
-        METSENAT <span class="text-green">PRO</span>
+  <div  class="bg-white  flex flex-col ">
+    <div class="w-[90%] mx-auto py-2">
+
+    <div class="flex justify-between  items-center">
+      <div class="row items-center">
+        <q-img
+            src="../../public/images/logoMini.png"
+            alt="Logo"
+            class="q-mr-sm"
+            width="50px"
+        />
+        <div class="text-bold flex flex-col " >
+          <span class="text-lg">METSENAT</span> <small class="text-green">PRO</small>
+        </div>
       </div>
+
+      <div class=" flex  items-center ">
+        <div class="flex items-center bg-[#F1F1F3]">
+          <div class="q-mr-sm">{{ userName }}</div>
+          <q-avatar size="40px" class="bg-green rounded-md">
+            <q-icon name="person" color="white" />
+          </q-avatar>
+        </div>
+        <q-btn dense flat round icon="logout" @click="logout" />
+      </div>
+
     </div>
 
-    <!-- Markazda Tab navigatsiya -->
     <q-tabs
         v-model="tab"
         class="q-mx-lg"
@@ -28,14 +41,8 @@
 
     <q-space />
 
-    <!-- O‘ng tomonda user -->
-    <div class="row items-center">
-      <div class="q-mr-sm">{{ userName }}</div>
-      <q-avatar size="32px" class="q-mr-sm">
-        <img src="https://cdn.quasar.dev/img/avatar.png" alt="user" />
-      </q-avatar>
-      <q-btn dense flat round icon="logout" @click="logout" />
     </div>
+
   </div>
 </template>
 
