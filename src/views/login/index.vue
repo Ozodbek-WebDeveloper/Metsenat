@@ -8,12 +8,12 @@
         <div  class=" w-full h-[456px] flex flex-col gap-2 bg-white p-8  rounded-xl" >
           <span class="text-xl font-bold" >Kirish</span>
           <div>
-            <label>lOGIN</label>
-            <q-input  outlined dense model-value=""/>
+            <small class=" font-bold bg-[#E0E7FF33] ">LOGIN</small>
+            <q-input  class="bg-[#E0E7FF33] text-[#2E384D59]" outlined dense model-value=""/>
           </div>
           <div>
-            <label>PAROL</label>
-            <q-input type="password" outlined dense model-value=""/>
+            <small class="font-bold">PAROL</small>
+            <q-input  class="bg-[#E0E7FF33] text-[#2E384D59]"  type="password" outlined dense model-value=""/>
           </div>
           <my-btn  name="Kirish" />
         </div>
