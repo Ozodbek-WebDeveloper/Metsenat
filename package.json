@@ -11,13 +11,15 @@
   "dependencies": {
     "@quasar/extras": "^1.17.0",
     "@tailwindcss/vite": "^4.1.13",
+    "apexcharts": "^5.3.5",
     "axios": "^1.12.2",
     "js-cookie": "^3.0.5",
     "pinia": "^3.0.3",
     "quasar": "^2.18.5",
     "tailwindcss": "^4.1.13",
     "vue": "^3.5.21",
-    "vue-router": "^4.5.1"
+    "vue-router": "^4.5.1",
+    "vue3-apexcharts": "^1.8.0"
   },
   "devDependencies": {
     "@quasar/vite-plugin": "^1.10.0",

@@ -1,7 +1,7 @@
 <template>
   <div  class="bg-white  flex flex-col ">
-    <div class="w-[90%] flex flex-col gap-8 mx-auto py-2">
-    <div class="flex justify-between  items-center">
+    <div class="w-[90%] flex flex-col  mx-auto py-2">
+      <div class="flex justify-between  items-center">
       <div class="row items-center">
         <q-img
             src="../../public/images/logoMini.png"
@@ -24,36 +24,22 @@
         <q-icon class="cursor-pointer" size="25px"   name="logout" @click="logout" />
       </div>
     </div>
-
-      <div class="flex justify-between ">
+      <div class="flex justify-between items-center ">
         <div class="w-[50%]">
           <q-tabs
-              v-model="tab"
+              :model-value="modelValue"
               class=" text-blue-500 rounded-lg shadow-sm border-2 border-[#DDE3FB]"
               active-color="white"
               active-bg-color="primary"
               indicator-color="transparent"
               align="justify"
               dense
+              @update:model-value="emit('update:modelValue', $event)"
           >
             <q-tab name="dashboard" label="DASHBOARD" class="font-bold" />
             <q-tab name="homiylar" label="HOMIYLAR" class="font-bold border-x-2 border-[#DDE3FB]" />
             <q-tab name="talabalar" label="TALABALAR" class="font-bold " />
           </q-tabs>
-
-          <q-tab-panels v-model="tab" animated>
-            <q-tab-panel name="dashboard">
-              <div class="q-pa-md">📊 Dashboard content</div>
-            </q-tab-panel>
-
-            <q-tab-panel name="homiylar">
-              <div class="q-pa-md">🤝 Homiylar content</div>
-            </q-tab-panel>
-
-            <q-tab-panel name="talabalar">
-              <div class="q-pa-md">🎓 Talabalar content</div>
-            </q-tab-panel>
-          </q-tab-panels>
         </div>
         <div class="flex items-start gap-2">
           <q-input
@@ -66,20 +52,39 @@
           <my-btn  no-caps icon="filter_alt" name="Filter" btn-class="!bg-[#EDF1FD] !text-[#3365FC]"/>
         </div>
       </div>
-
     </div>
   </div>
+  <q-dialog v-model="showLogoutDialog" persistent>
+    <div class="bg-white p-4">
+      <div class="flex items-center justify-between gap-10" >
+        <span class="text-lg font-bold">Siz hisobingizdan chiqmochimisiz?</span>
+        <q-icon v-close-popup class="cursor-pointer hover:text-red-600" size="30px" name="close" />
+      </div>
+      <div class="flex w-full justify-end mt-6">
+          <my-btn @click="confirmLogout" btn-class=" !w-full " name="chiqish" />
+      </div>
+    </div>
+  </q-dialog>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue"
 import MyBtn from "@/components/myBtn.vue";
 
-const tab = ref("dashboard")
+defineProps<{
+  modelValue: string
+}>();
+
+const showLogoutDialog = ref(false);
+const emit = defineEmits(["update:modelValue","confirmLogout"]);
 const userName = ref("Shohrux")
 const  search = ref("")
 const logout = () => {
-  console.log("Chiqish bosildi")
+  showLogoutDialog.value = true
+}
+const confirmLogout = () => {
+  emit("confirmLogout")
+  showLogoutDialog.value = false
 }
 </script>
 

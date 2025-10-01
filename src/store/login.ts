@@ -1,7 +1,9 @@
+// stores/account.ts
 import { defineStore } from 'pinia'
 import Cookies from 'js-cookie'
 import axios from 'axios'
 import { ref } from 'vue'
+import router from '../router'
 
 interface User {
     id: number
@@ -17,9 +19,12 @@ export const useAccountStore = defineStore('account', () => {
 
     const login = async (username: string, password: string) => {
         try {
-            const res  = await axios.post(`${API_URL}/auth/login/`, { username:username, password:password })
+            const res  = await axios.post(`${API_URL}/auth/login/`, {
+                username,
+                password
+            })
             token.value = res.data.access
-            Cookies.set('token',res.data.access)
+            Cookies.set('token', res.data.access)
             return res
         } catch (err) {
             console.error(err)
@@ -27,7 +32,8 @@ export const useAccountStore = defineStore('account', () => {
         }
     }
 
-    const logout = () => {
+    const logout =() => {
+        router.push({ name: 'login' })
         token.value = null
         user.value = null
         Cookies.remove('token')
