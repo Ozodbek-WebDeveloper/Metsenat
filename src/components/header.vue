@@ -1,7 +1,7 @@
 <template>
   <div  class="bg-white  flex flex-col ">
     <div class="w-[90%] mx-auto py-2">
-  <h1>my test 123</h1>
+  <h1>my test</h1>
     <div class="flex justify-between  items-center">
       <div class="row items-center">
         <q-img
