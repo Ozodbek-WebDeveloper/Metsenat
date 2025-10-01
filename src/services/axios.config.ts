@@ -1,4 +1,5 @@
-import  axios,{AxiosInstance} from 'axios'
+import  axios from 'axios'
+import  type {AxiosInstance} from 'axios'
 import cookies from 'js-cookie'
 
 const  instance:AxiosInstance = axios.create({

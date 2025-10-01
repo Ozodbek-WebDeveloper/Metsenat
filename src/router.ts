@@ -12,16 +12,17 @@ const router = createRouter({
     routes,
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _from, next) => {
     const token = cookies.get('token');
-    if (to.meta.requiresAuth && !token) {
-        next('/login')
-    } else if(to.path === '/login' && token) {
-        next('/')
-    } else {
-        next()
-    }
 
-})
+    if (to.meta.requiresAuth && !token) {
+        next('/login');
+    } else if (to.path === '/login' && token) {
+        next('/');
+    } else {
+        next();
+    }
+});
+
 
 export default router
