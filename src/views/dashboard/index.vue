@@ -47,7 +47,7 @@
       <div class="flex items-center justify-between">
         <div>
           <span>
-          {{totalPages}} tadan {{sponsorPaging.page}} - {{sponsorPaging.page_size}} ko'ratilmoqda
+          {{sponsorList.count}} tadan {{sponsorPaging.page > 1 ?  sponsorPaging.page_size * (sponsorPaging.page - 1) + 1 : sponsorPaging.page}} - {{sponsorPaging.page_size * sponsorPaging.page}} ko'ratilmoqda
           </span>
         </div>
         <div class="flex items-center justify-center gap-3" >

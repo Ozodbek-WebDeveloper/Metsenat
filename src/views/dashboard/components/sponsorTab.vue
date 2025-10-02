@@ -51,7 +51,9 @@
           {{formatDate(item.created_at)}}
         </td>
         <td>
-          Yangi
+        <span >
+            {{item.get_status_display}}
+        </span>
         </td>
         <td class="text-center align-middle rounded-r-lg">
           <img alt="view" src="../../../../public/images/eye 1.png" class="mx-auto cursor-pointer"  height="24" width="24"/>
@@ -77,6 +79,8 @@ const formatDate = (dateStr: string): string =>{
   const year = date.getFullYear();
   return `${day}.${month}.${year}`;
 }
+
+
 </script>
 
 <style>
