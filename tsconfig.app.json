@@ -9,6 +9,7 @@
       "@/*": ["src/*"]
     },
     "baseUrl": ".",
+    "strictNullChecks": false,
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": false,

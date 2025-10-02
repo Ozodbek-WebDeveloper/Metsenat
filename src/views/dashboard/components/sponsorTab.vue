@@ -70,8 +70,8 @@ import TableSkeleton from "@/views/dashboard/skeleton/tableSkeleton.vue";
 defineProps<{
   table?: Sponsor[],
   totalPage?:{
-    page:number
-    page_size:number
+    page:number | null
+    page_size:number | null
   },
   isLoading?:boolean
 }>()
