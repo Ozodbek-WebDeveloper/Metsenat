@@ -49,7 +49,7 @@
               <q-icon name="search" />
             </template>
           </q-input>
-          <my-btn  no-caps icon="filter_alt" name="Filter" btn-class="!bg-[#EDF1FD] !text-[#3365FC]"/>
+          <my-btn  @click="openFilter" no-caps icon="filter_alt" name="Filter" btn-class="!bg-[#EDF1FD] !text-[#3365FC]"/>
         </div>
       </div>
     </div>
@@ -74,9 +74,10 @@ import MyBtn from "@/components/myBtn.vue";
 defineProps<{
   modelValue: string
 }>();
+const emit = defineEmits(["update:modelValue","confirmLogout","openFilter"]);
+
 
 const showLogoutDialog = ref(false);
-const emit = defineEmits(["update:modelValue","confirmLogout"]);
 const userName = ref("Shohrux")
 const  search = ref("")
 const logout = () => {
@@ -85,6 +86,9 @@ const logout = () => {
 const confirmLogout = () => {
   emit("confirmLogout")
   showLogoutDialog.value = false
+}
+const openFilter = () =>{
+  emit("openFilter")
 }
 </script>
 
