@@ -1,5 +1,6 @@
 <template>
-  <table class="border-separate border-spacing-y-3 w-full" >
+  <table-skeleton v-if="isLoading"/>
+  <table v-else class="border-separate border-spacing-y-3 w-full" >
     <thead >
       <tr class="uppercase text-[#B1B1B8] !text-xs  tracking-widest">
         <th  class="!text-left">
@@ -64,13 +65,15 @@
 </template>
 <script setup lang="ts">
 import type {Sponsor} from "@/types.ts";
+import TableSkeleton from "@/views/dashboard/skeleton/tableSkeleton.vue";
 
 defineProps<{
   table?: Sponsor[],
   totalPage?:{
     page:number
     page_size:number
-  }
+  },
+  isLoading?:boolean
 }>()
 const formatDate = (dateStr: string): string =>{
   const date = new Date(dateStr);

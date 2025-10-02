@@ -43,7 +43,7 @@
     </q-tab-panel>
 
     <q-tab-panel name="homiylar">
-      <sponsor-tab  :totalPage="sponsorPaging"  :table="sponsorList?.results" />
+      <sponsor-tab :is-loading="isLoading"  :totalPage="sponsorPaging"  :table="sponsorList?.results" />
       <div class="flex items-center justify-between">
         <div>
           <span>
@@ -114,6 +114,7 @@ const  tab = ref("dashboard");
 const maxVisible = 2;
 const  sponsorList = ref<SponsorListResponse | null>(null);
 const  showFilterDialog = ref(false);
+const  isLoading = ref(true);
 const sponsorPaging = ref<ISponsorPaging>({
   page:1,
   page_size:10,
@@ -122,10 +123,13 @@ const sponsorPaging = ref<ISponsorPaging>({
 });
 
 const  loadSponsor = async () => {
+  isLoading.value = true
   const res = await getSponsor(sponsorPaging.value);
   sponsorList.value = res?.data
   console.log(res);
+  isLoading.value = false
 }
+
 
 const totalPages = computed(() => {
   return Math.ceil((sponsorList.value?.count || 0) / sponsorPaging.value.page_size)
