@@ -1,12 +1,12 @@
 <template>
-  <Header @openFilter="showFilterDialog = true" @confirmLogout="userStore.logout" v-model="tab"/>
+  <Header @openFilter="showFilterDialog = true" @confirmLogout="userStore.logout" v-model="tab" />
   <q-tab-panels class="bg-transparent w-[90%]  mx-auto" v-model="tab" animated>
     <q-tab-panel name="dashboard">
       <div class="grid grid-cols-3 mb-4 gap-5">
         <div class=" bg-white flex gap-4 rounded-lg p-6">
-          <q-img src="../../../public/images/money_blue.png" height="48px" width="48px"/>
+          <q-img src="../../../public/images/money_blue.png" height="48px" width="48px" />
           <div>
-            <small  class="text-xs !text-[#7A7A9D]">
+            <small class="text-xs !text-[#7A7A9D]">
               Jami to‘langan summa
             </small>
             <p class="text-xl font-bold">
@@ -14,11 +14,11 @@
             </p>
           </div>
         </div>
-<!--        -->
+        <!--        -->
         <div class=" bg-white flex gap-4 rounded-lg p-6">
-          <q-img src="../../../public/images/money_gold.png" height="48px" width="48px"/>
+          <q-img src="../../../public/images/money_gold.png" height="48px" width="48px" />
           <div>
-            <small class="text-xs !text-[#7A7A9D]" >
+            <small class="text-xs !text-[#7A7A9D]">
               Jami so‘ralgan summa
             </small>
             <p class="text-xl font-bold">
@@ -26,11 +26,11 @@
             </p>
           </div>
         </div>
-<!--        -->
+        <!--        -->
         <div class=" bg-white flex gap-4 rounded-lg p-6">
-          <q-img src="../../../public/images/money_crismon.png" height="48px" width="48px"/>
+          <q-img src="../../../public/images/money_crismon.png" height="48px" width="48px" />
           <div>
-            <small  class="text-xs !text-[#7A7A9D]">
+            <small class="text-xs !text-[#7A7A9D]">
               To‘lanishi kerak summa
             </small>
             <p class="text-xl font-bold">
@@ -39,50 +39,41 @@
           </div>
         </div>
       </div>
-      <charts-tab/>
+      <charts-tab />
     </q-tab-panel>
 
     <q-tab-panel name="homiylar">
-      <sponsor-tab :is-loading="isLoading"  :totalPage="sponsorPaging"  :table="sponsorList?.results" />
+      <sponsor-tab :is-loading="isLoading" :totalPage="sponsorPaging" :table="sponsorList?.results" />
       <div class="flex items-center justify-between">
         <div>
           <span>
-          {{sponsorList.count}} tadan {{sponsorPaging.page > 1 ?  sponsorPaging.page_size * (sponsorPaging.page - 1) + 1 : sponsorPaging.page}} - {{sponsorPaging.page_size * sponsorPaging.page}} ko'ratilmoqda
+            {{ sponsorList.count }} tadan {{ sponsorPaging.page > 1 ? sponsorPaging.page_size * (sponsorPaging.page - 1) +
+              1 : sponsorPaging.page}} - {{ sponsorPaging.page_size * sponsorPaging.page }} ko'ratilmoqda
           </span>
         </div>
-        <div class="flex items-center justify-center gap-3" >
+        <div class="flex items-center justify-center gap-3">
           <div class="flex items-center justify-center gap-2">
             <span>Ko'rsatish</span>
             <select v-model="sponsorPaging.page_size" class="custom-select">
-              <option v-for="item in [5,10,15]" :value="item" >{{item}}</option>
+              <option v-for="item in [5, 10, 15]" :value="item">{{ item }}</option>
             </select>
           </div>
           <div class="pagination">
-            <button
-                class="page-btn"
-                :disabled="sponsorPaging.page === 1"
-                @click="changePage(sponsorPaging.page - 1)">
+            <button class="page-btn" :disabled="sponsorPaging.page === 1" @click="changePage(sponsorPaging.page - 1)">
               ‹
             </button>
             <button v-if="showFirst" class="page-btn" @click="changePage(1)">1</button>
             <span v-if="showLeftDots">...</span>
-            <button
-                v-for="page in pages"
-                :key="page"
-                class="page-btn"
-                :class="{ active: page === sponsorPaging.page }"
-                @click="changePage(page)"
-            >
+            <button v-for="page in pages" :key="page" class="page-btn" :class="{ active: page === sponsorPaging.page }"
+              @click="changePage(page)">
               {{ page }}
             </button>
             <span v-if="showRightDots">...</span>
             <button v-if="showLast" class="page-btn" @click="changePage(totalPages)">
               {{ totalPages }}
             </button>
-            <button
-                class="page-btn"
-                :disabled="sponsorPaging.page === totalPages"
-                @click="changePage(sponsorPaging?.page + 1)">
+            <button class="page-btn" :disabled="sponsorPaging.page === totalPages"
+              @click="changePage(sponsorPaging?.page + 1)">
               ›
             </button>
           </div>
@@ -94,35 +85,35 @@
       <div class="q-pa-md">🎓 Talabalar content</div>
     </q-tab-panel>
   </q-tab-panels>
-  <q-dialog   v-model="showFilterDialog" >
-    <Filter/>
+  <q-dialog v-model="showFilterDialog">
+    <Filter />
   </q-dialog>
 </template>
 
 <script setup lang="ts">
-import {computed, onMounted, ref,watch} from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import Header from "@/components/header.vue";
 import ChartsTab from "@/views/dashboard/components/chartsTab.vue";
-import {useAccountStore} from "@/store/login.ts";
+import { useAccountStore } from "@/store/login.ts";
 import SponsorTab from "@/views/dashboard/components/sponsorTab.vue";
-import type {ISponsorPaging, SponsorListResponse} from "@/types.ts";
-import {getSponsor} from "@/services/myApi.ts";
+import type { ISponsorPaging, SponsorListResponse } from "@/types.ts";
+import { getSponsor } from "@/services/myApi.ts";
 import Filter from "@/components/filter.vue";
 
-const  userStore = useAccountStore();
-const  tab = ref("dashboard");
+const userStore = useAccountStore();
+const tab = ref("dashboard");
 const maxVisible = 2;
-const  sponsorList = ref<SponsorListResponse | null>(null);
-const  showFilterDialog = ref(false);
-const  isLoading = ref(true);
+const sponsorList = ref<SponsorListResponse | null>(null);
+const showFilterDialog = ref(false);
+const isLoading = ref(true);
 const sponsorPaging = ref<ISponsorPaging>({
-  page:1,
-  page_size:10,
-  ordering:null,
-  search:null,
+  page: 1,
+  page_size: 10,
+  ordering: null,
+  search: null,
 });
 
-const  loadSponsor = async () => {
+const loadSponsor = async () => {
   isLoading.value = true
   const res = await getSponsor(sponsorPaging.value);
   sponsorList.value = res?.data
@@ -158,18 +149,17 @@ const changePage = (page: number) => {
 }
 
 watch(() => [sponsorPaging.value.page, sponsorPaging.value.page_size],
-    () =>{
-        loadSponsor()
-      }
+  () => {
+    loadSponsor()
+  }
 )
 
-onMounted(() =>{
+onMounted(() => {
   loadSponsor()
 })
 </script>
 
 <style>
-
 .custom-select {
   padding: 5px 8px;
   border-radius: 5px;
